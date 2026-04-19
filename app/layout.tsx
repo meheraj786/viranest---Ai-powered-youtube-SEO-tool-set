@@ -6,10 +6,30 @@ import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
+import type { Viewport } from "next";
+
 export const metadata: Metadata = {
-  title: "ContentPro - YouTube SEO Tool",
-  description: "One click YouTube SEO for Bangladeshi creators",
+  manifest: "/manifest.json",
+  title: "ViraNest Ai",
+  description: "An Ai powered YouTube tools",
+
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "My App" },
+
+  themeColor: "#000000",
 };
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+
+  width: "device-width",
+
+  initialScale: 1,
+};
+
+// export const metadata: Metadata = {
+//   title: "ViraNest Ai",
+//   description: "An Ai powered YouTube tools",
+// };
 
 export default function RootLayout({
   children,
