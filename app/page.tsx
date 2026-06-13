@@ -249,7 +249,7 @@ export default function Home() {
 
       {/* ── FOOTER ── */}
       <footer className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-        © 2026 ViraNest · <a href="www.github.com/meheraj786">Meheraj H.</a> · All rights reserved
+        © 2026 ViraNest · <a href="https://github.com/meheraj786">Meheraj H.</a> · All rights reserved
       </footer>
     </div>
   );
