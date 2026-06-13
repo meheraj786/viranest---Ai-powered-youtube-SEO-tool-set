@@ -162,7 +162,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button
               size="lg"
-              className="w-full sm:w-auto px-8 h-12 text-sm sm:text-base rounded-xl font-semibold
+              className="w-full hidden sm:w-auto px-8 h-12 text-sm sm:text-base rounded-xl font-semibold
                          bg-gradient-to-r from-violet-600 to-fuchsia-600
                          hover:from-violet-500 hover:to-fuchsia-500
                          border-0 shadow-lg shadow-violet-500/20 text-white"
