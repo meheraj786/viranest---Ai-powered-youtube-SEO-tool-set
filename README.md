@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ViraNest AI
+ViraNest AI is a Next.js app that generates YouTube growth content from a single topic or keyword.
 
-## Getting Started
+It includes multiple AI tools such as title generation, description writing, tags, hashtags, thumbnail prompts, scripts, hooks, and Shorts ideas.
 
-First, run the development server:
+## Features
+- AI-powered YouTube content generation from one keyword
+- Dedicated tool pages under dynamic routes (`/tool/[slug]`)
+- API route for generation (`/api/generate`)
+- Dark/light theme toggle with `next-themes`
+- PWA support via `@ducanh2912/next-pwa` and `public/manifest.json`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Built With
+- Next.js 16 (App Router)
+- React 19 + TypeScript
+- Tailwind CSS v4 + shadcn/ui
+- OpenAI SDK (configured to call Groq OpenAI-compatible API)
+- lucide-react icons
+
+## Tool Slugs
+The app currently supports these tools:
+- `seo-title`
+- `seo-description`
+- `tags`
+- `hashtag`
+- `thumbnail`
+- `script`
+- `viral-hook`
+- `shorts`
+
+## Project Structure
+```text
+app/
+  page.tsx                 # Landing page with tool cards
+  layout.tsx               # Root layout, metadata, theme provider, toaster
+  api/generate/route.ts    # POST endpoint for AI generation
+  tool/[slug]/page.tsx     # Dynamic tool page UI
+components/
+  theme-toggle.tsx
+  ui/                      # shadcn/ui components
+lib/
+  ai.ts                    # AI generation logic and prompts
+  utils.ts                 # Utility helpers
+public/
+  manifest.json            # PWA manifest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
+- Node.js 20+ recommended
+- pnpm recommended (this repo includes `pnpm-lock.yaml`)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
+Create `.env.local` in the project root.
 
-## Learn More
+At least one of the following must be set:
+- `GROQ_API_KEY` (preferred in current implementation)
+- `OPENAI_API_KEY` (fallback key name supported by code)
 
-To learn more about Next.js, take a look at the following resources:
+The generation logic in `lib/ai.ts` uses:
+- Base URL: `https://api.groq.com/openai/v1`
+- Model: `llama-3.3-70b-versatile`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run Locally
+```bash
+pnpm dev
+```
+Open `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
+- `pnpm dev` – Run development server
+- `pnpm build` – Create production build (`next build --webpack`)
+- `pnpm start` – Start production server
+- `pnpm lint` – Run ESLint
 
-## Deploy on Vercel
+## API Usage
+Endpoint:
+- `POST /api/generate`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Request body:
+```json
+{
+  "tool": "seo-title",
+  "keyword": "how to grow a youtube channel in 2026"
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Response:
+```json
+{
+  "result": "..."
+}
+```
+
+If `tool` or `keyword` is missing, the API returns `400`.
+
+## PWA Notes
+- PWA is configured in `next.config.ts` with `@ducanh2912/next-pwa`.
+- PWA is disabled during development and enabled for production builds.
+- Manifest and icons are defined under `public/`.
+
+## Deployment
+Build and run in production mode:
+```bash
+pnpm build
+pnpm start
+```
+
+Make sure your deployment environment includes `GROQ_API_KEY` or `OPENAI_API_KEY`.
